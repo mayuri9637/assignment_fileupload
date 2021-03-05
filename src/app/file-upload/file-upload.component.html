@@ -26,7 +26,7 @@
            
             <tbody class="upload-name-style">
                 <tr *ngFor="let item of allOpenedFiles; let i=index">
-                    <td><strong>{{ item.name }}</strong> <span *ngIf="hideClose" (click)="deleteFile(item)" class="material-icons close-icon">
+                    <td><strong>{{ item.name }}</strong> <span *ngIf="hideClose" (click)="deleteFile(item,i)" class="material-icons close-icon">
                         close
                     </span></td>
                 </tr>

@@ -55,9 +55,9 @@ export class FileUploadComponent implements OnInit {
   public fileLeave(event){
     console.log(event);
   }
-  deleteFile(filename){
+  deleteFile(filename, index){
   for(let i=0; i<this.allOpenedFiles.length; i++){
-    if(this.allOpenedFiles[i].name === filename.name){
+    if(this.allOpenedFiles[i].name === filename.name && i==index){
         delete this.allOpenedFiles[i];
         this.hideClose= false;
     }
