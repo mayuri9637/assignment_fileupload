@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop';
 
+
 @Component({
   selector: 'app-file-upload',
   templateUrl: './file-upload.component.html',
@@ -8,8 +9,10 @@ import { NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from 
 })
 export class FileUploadComponent implements OnInit {
   public files: NgxFileDropEntry[] = [];
+  public allOpenedFiles :Array<any> =[];
   errorMessage;
   hideClose = true;
+  
   constructor() { }
 
   ngOnInit(): void {
@@ -26,7 +29,7 @@ export class FileUploadComponent implements OnInit {
     
               console.log(droppedFile.relativePath, file);
               if(file.size < 2097152 && this.isFileAllowed(droppedFile.relativePath)){
-
+                  this.allOpenedFiles.push(file);
                   this.errorMessage = false;
               }else{
                 this.files =[];
@@ -53,9 +56,9 @@ export class FileUploadComponent implements OnInit {
     console.log(event);
   }
   deleteFile(filename){
-  for(let i=0; i<this.files.length; i++){
-    if(this.files[i].relativePath === filename){
-        delete this.files[i];
+  for(let i=0; i<this.allOpenedFiles.length; i++){
+    if(this.allOpenedFiles[i].name === filename.name){
+        delete this.allOpenedFiles[i];
         this.hideClose= false;
     }
     this.hideClose= true;
@@ -76,12 +79,4 @@ export class FileUploadComponent implements OnInit {
     return isFileAllowed;
   }
 
-  isFileSizeAllowed(size) {
-    let isFileSizeAllowed = false;
-    if (size < 2000000) {
-      isFileSizeAllowed = true;
-    }
-    return isFileSizeAllowed;
-
-  }
 }
